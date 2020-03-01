@@ -1,43 +1,45 @@
 using System;
 using System.Collections.Generic;
 
-namespace IA2 {
-	public class State<T> {
-		public string Name { get { return name; } }
+namespace InteligenciaArtificial2 {
+    public class State<T> {
+        private Dictionary<T, Transition<T>> _transitions = new Dictionary<T, Transition<T>>();
 
-		public event Action<T> OnEnter = delegate {};
-		public event Action OnUpdate = delegate {};
-		public event Action<T> OnExit = delegate {};
+        public string Name { get; set; }
 
-		string name;
-		Dictionary<T, Transition<T>> transitions = new Dictionary<T, Transition<T>>();
+        public event Action<T> OnEnter = delegate { };
+        public event Action OnUpdate = delegate { };
+        public event Action<T> OnExit = delegate { };
 
-		public State() {
-		}
+
+        public State() { }
 
 		public State(string name) {
-			this.name = name;
+			Name = name;
 		}
 
 		public State<T> Configure(Dictionary<T, Transition<T>> transitions) {
-			this.transitions = transitions;
-			return this;
+			_transitions = transitions;
+
+            return this;
 		}
 
 		public Transition<T> GetTransition(T input) {
-			return transitions[input];
+			return _transitions[input];
 	    }
 
 		public bool Feed(T input, out State<T> next) {
-			if(transitions.ContainsKey(input)) {
-				var transition = transitions[input];
+			if(_transitions.ContainsKey(input)) {
+				var transition = _transitions[input];
 				transition.OnTransitionExecute(input);
 				next = transition.TargetState;
-				return true;
+
+                return true;
 			}
 
 			next = this;
-			return false;
+
+            return false;
 		}
 
 		public void Enter(T input) {

@@ -1,21 +1,22 @@
 using System.Collections.Generic;
 
-namespace IA2 {
+namespace InteligenciaArtificial2 {
 	public class StateConfigurer<T> {
-		State<T> instance;
-		Dictionary<T, Transition<T>> transitions = new Dictionary<T, Transition<T>>();
+		private State<T> _instance;
+		private Dictionary<T, Transition<T>> _transitions = new Dictionary<T, Transition<T>>();
 
 		public StateConfigurer(State<T> state) {
-			instance = state;
+			_instance = state;
 		}
 
-		public StateConfigurer<T> SetTransition(T input, State<T> target) {
-			transitions.Add(input, new Transition<T>(input, target));
+		public StateConfigurer<T> SetTransitions(T input, State<T> target) {
+			_transitions.Add(input, new Transition<T>(input, target));
+
 			return this;
 		}
 
-		public void Done() {
-			instance.Configure(transitions);
+		public void Configure() {
+			_instance.Configure(_transitions);
 		}
 	}
 

@@ -1,5 +1,4 @@
-public enum PlayerActionKey
-{
+public enum PlayerActionKey {
     NULL,
     PlantTomatoes,
     GetSeed,
