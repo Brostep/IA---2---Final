@@ -1,18 +1,13 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class TomatoesController : MonoBehaviour
-{
-    private Animator _anim;
+public class TomatoesController : MonoBehaviour {
+    private Animator _animator;
 
-    void Start()
-    {
-        _anim = GetComponent<Animator>();
+    private void Start() {
+        _animator = GetComponent<Animator>();
     }
 
-    public void Grow()
-    {
-        _anim.SetTrigger("grow");
+    public void Grow() {
+        _animator.SetTrigger("grow");
     }
 }

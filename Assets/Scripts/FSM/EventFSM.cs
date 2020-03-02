@@ -16,8 +16,7 @@ namespace InteligenciaArtificial2 {
 
         public bool Feed(T input) {
             State<T> newState;
-
-            //Added any. Notice the or will not execute the second part if it satisfies the first condition.
+            
             if (Current.Feed(input, out newState) || _any.Feed(input, out newState)) {
                 Current.Exit(input);
                 Debug.Log("FSM state: " + Current.Name + "---" + input + "---> " + newState.Name);

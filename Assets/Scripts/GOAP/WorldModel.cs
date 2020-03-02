@@ -1,9 +1,7 @@
 using System;
 using System.Collections.Generic;
-using UnityEngine;
 
-public class WorldModel
-{
+public class WorldModel {
     public int tomatoes;
     public int seeds;
     public float money;
@@ -15,45 +13,42 @@ public class WorldModel
 	public int stealCount;
 	public bool hasflour;
 
-	public static bool IsEqual(WorldModel a, WorldModel b)
-    {
-        return a.tomatoes == b.tomatoes &&
-            a.seeds == b.seeds &&
-            a.money == b.money &&
-            a.item == b.item &&
-            a.hasPayedTaxes == b.hasPayedTaxes &&
-            a.isPizzaMaster == b.isPizzaMaster &&
-			a.givenAdvice == b.givenAdvice &&
-			a.hasflour == b.hasflour &&
-			a.isAThief == b.isAThief &&
-			a.stealCount == b.stealCount;
+	public static bool IsEqual(WorldModel worldModel1, WorldModel worldModel2) {
+        return worldModel1.tomatoes == worldModel2.tomatoes &&
+            worldModel1.seeds == worldModel2.seeds &&
+            worldModel1.money == worldModel2.money &&
+            worldModel1.item == worldModel2.item &&
+            worldModel1.hasPayedTaxes == worldModel2.hasPayedTaxes &&
+            worldModel1.isPizzaMaster == worldModel2.isPizzaMaster &&
+			worldModel1.givenAdvice == worldModel2.givenAdvice &&
+			worldModel1.hasflour == worldModel2.hasflour &&
+			worldModel1.isAThief == worldModel2.isAThief &&
+			worldModel1.stealCount == worldModel2.stealCount;
     }
 
-    public static WorldModel Clone(WorldModel baseModel)
-    {
-        var clone = new WorldModel();
-        clone.tomatoes = baseModel.tomatoes;
-        clone.seeds = baseModel.seeds;
-        clone.money = baseModel.money;
-        clone.item = baseModel.item;
-        clone.hasPayedTaxes = baseModel.hasPayedTaxes;
-        clone.isPizzaMaster = baseModel.isPizzaMaster;
-        clone.givenAdvice = baseModel.givenAdvice;
-		clone.hasflour = baseModel.hasflour;
-		clone.stealCount = baseModel.stealCount;
-		clone.isAThief = baseModel.isAThief;
-
+    public static WorldModel Clone(WorldModel baseModel) {
+        var clone = new WorldModel() {
+            tomatoes = baseModel.tomatoes,
+            seeds = baseModel.seeds,
+            money = baseModel.money,
+            item = baseModel.item,
+            hasPayedTaxes = baseModel.hasPayedTaxes,
+            isPizzaMaster = baseModel.isPizzaMaster,
+            givenAdvice = baseModel.givenAdvice,
+            hasflour = baseModel.hasflour,
+            stealCount = baseModel.stealCount,
+            isAThief = baseModel.isAThief
+        };
+        
 		return clone;
     }
 
-    public static WorldModel UpdateValues(WorldModel wm, List<Func<WorldModel,WorldModel>> effects)
-    {
-        var newValue = Clone(wm);
-        foreach (var e in effects)
-        {
-            newValue = e(newValue);
-        }
+    public static WorldModel UpdateValues(WorldModel worldModel, List<Func<WorldModel,WorldModel>> effects) {
+        var newValue = Clone(worldModel);
 
+        foreach (var e in effects)
+            newValue = e(newValue);
+        
         return newValue;
     }
 }

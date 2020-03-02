@@ -10,8 +10,7 @@ namespace InteligenciaArtificial2 {
         public event Action<T> OnEnter = delegate { };
         public event Action OnUpdate = delegate { };
         public event Action<T> OnExit = delegate { };
-
-
+        
         public State() { }
 
 		public State(string name) {

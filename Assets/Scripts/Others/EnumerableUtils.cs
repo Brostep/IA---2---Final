@@ -8,7 +8,6 @@ public static class EnumerableUtils {
 
         while (true) {
             yield return accum;
-
             accum = mutate(accum);
         }
     }
@@ -19,19 +18,16 @@ public static class EnumerableUtils {
 
     public static IEnumerable<Node> GeneratePath<Node>(Node end, Dictionary<Node, Node> parents) {
         var last = end;
-
         yield return last;
 
         while (parents.ContainsKey(last)) {
             last = parents[last];
-
             yield return last;
         }
     }
 
     public static T Log<T>(T obj, string pre = "", string sub = "") {
         Debug.Log(pre + obj.ToString() + sub);
-
         return obj;
     }
 }

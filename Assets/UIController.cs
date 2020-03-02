@@ -1,10 +1,7 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class UIController : MonoBehaviour
-{
+public class UIController : MonoBehaviour {
     public Image debtFree;
     public Image knife;
 	public Image shovel;
@@ -14,15 +11,14 @@ public class UIController : MonoBehaviour
     public Text tomatoesAmount;
 
 
-    public void UpdateUI(WorldModel wm)
-    {
-        moneyAmount.text = wm.money.ToString();
-        seedAmount.text = wm.seeds.ToString();
-		tomatoesAmount.text = wm.tomatoes.ToString();
+    public void UpdateUI(WorldModel worldModel) {
+        moneyAmount.text = worldModel.money.ToString();
+        seedAmount.text = worldModel.seeds.ToString();
+		tomatoesAmount.text = worldModel.tomatoes.ToString();
 
-		flour.enabled = wm.hasflour;
-		knife.enabled = wm.item == 0;
-		shovel.enabled = wm.item == 1;
-		debtFree.enabled = wm.item == 2;
+		flour.enabled = worldModel.hasflour;
+		knife.enabled = worldModel.item == 0;
+		shovel.enabled = worldModel.item == 1;
+		debtFree.enabled = worldModel.item == 2;
     }
 }

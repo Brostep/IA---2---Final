@@ -1,40 +1,32 @@
 ﻿using System.Collections.Generic;
 using System;
 
-public class GoapAction
-{
-    public List<Func<WorldModel, WorldModel>> Effects { get { return _effects; } }
-    public List<Func<WorldModel, bool>> Preconditions { get { return _preConditions; } }
+public class GoapAction {
+    private PlayerActionKey _actionKey;
+
     public string Name { get { return _actionKey.ToString(); } }
-    public float Cost { get { return _cost; } }
-
-    PlayerActionKey _actionKey;
-    List<Func<WorldModel, bool>> _preConditions;
-    List<Func<WorldModel, WorldModel>> _effects;
-    float _cost;
-
-    public GoapAction(PlayerActionKey key)
-    {
+    public float Cost { get; set; }
+    public List<Func<WorldModel, bool>> Preconditions { get; set; }
+    public List<Func<WorldModel, WorldModel>> Effects { get; set; }
+    
+    public GoapAction(PlayerActionKey key) {
         _actionKey = key;
-        _preConditions = new List<Func<WorldModel, bool>>();
-        _effects = new List<Func<WorldModel, WorldModel>>();
+        Preconditions = new List<Func<WorldModel, bool>>();
+        Effects = new List<Func<WorldModel, WorldModel>>();
     }
-
-    public GoapAction AddPrecondition(Func<WorldModel, bool> pre)
-    {
-        _preConditions.Add(pre);
+    
+    public GoapAction AddCost(float cost) {
+        Cost = cost;
         return this;
     }
 
-    public GoapAction AddEffect(Func<WorldModel, WorldModel> eff)
-    {
-        _effects.Add(eff);
+    public GoapAction AddPrecondition(Func<WorldModel, bool> precondition) {
+        Preconditions.Add(precondition);
         return this;
     }
 
-    public GoapAction AddCost(float cost)
-    {
-        _cost = cost;
+    public GoapAction AddEffect(Func<WorldModel, WorldModel> effect) {
+        Effects.Add(effect);
         return this;
     }
 }

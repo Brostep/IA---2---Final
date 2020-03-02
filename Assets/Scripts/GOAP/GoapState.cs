@@ -1,40 +1,28 @@
 using System;
 using System.Collections.Generic;
-using UnityEngine;
 
-public class GoapState
-{
-    List<GoapAction> _actions;
-    WorldModel _currentWorldModel;
-    Func<WorldModel, bool> _goal;
-    Func<WorldModel, WorldModel, float> _heuristic;
-    GoapAction _generatedAction;
+public class GoapState {
+    public List<GoapAction> Actions { get; set; }
+    public GoapAction GeneratedAction { get; set; }
+    public WorldModel CurrentWorldModel { get; set; }
+    public Func<WorldModel, bool> Goal { get; set; }
+    public Func<WorldModel, WorldModel, float> Heuristic { get; set; }
 
-    public List<GoapAction> Actions { get { return _actions; } }
-    public Func<WorldModel, bool> Goal { get { return _goal; } }
-    public WorldModel CurrentWorldModel { get { return _currentWorldModel; } }
-    public GoapAction GeneratedAction { get { return _generatedAction; } }
-    public Func<WorldModel, WorldModel, float> Heuristic { get { return _heuristic; } }
-
-    public GoapState(List<GoapAction> actions, GoapAction generatedAction, WorldModel initialValues, Func<WorldModel, bool> goal, Func<WorldModel, WorldModel, float> h)
-    {
-        _actions = actions;
-        _currentWorldModel = initialValues;
-        _goal = goal;
-        _heuristic = h;
-        _generatedAction = generatedAction;
+    public GoapState(List<GoapAction> actions, GoapAction generatedAction, WorldModel initialValues, Func<WorldModel, bool> goal, Func<WorldModel, WorldModel, float> h) {
+        Actions = actions;
+        GeneratedAction = generatedAction;
+        CurrentWorldModel = initialValues;
+        Goal = goal;
+        Heuristic = h;
     }
 
-    public bool IsEqual(GoapState s)
-    {
-        var result = false;
+    public bool IsEqual(GoapState state) {
+        if (Equals(state.CurrentWorldModel, CurrentWorldModel))
+            return true;
 
-        if (Equals(s.CurrentWorldModel,CurrentWorldModel))
-            result = true;
+        if (state.GeneratedAction != GeneratedAction)
+            return false;
 
-        if (s.GeneratedAction != GeneratedAction)
-            result = false;
-
-        return result;
+        return false;
     }
 }
