@@ -51,7 +51,7 @@ public class PlayerController : MonoBehaviour
 
     [Header("Side Logic references")]
     public TomatoesController tomatoesController;
-    public GameObject macri;
+    public GameObject wheat;
     public ParticleSystem moneyPS;
     public ParticleSystem tomatoePS;
     public ParticleSystem seedPS;
@@ -64,14 +64,14 @@ public class PlayerController : MonoBehaviour
     private Queue<Tuple<string, WorldModel>> _actionQueue;
     private Walker _walker;
     private UIController _ui;
-    private int stealCount;
+    private int stealCount = 0;
 
     void Start()
     {
         _ui = GetComponent<UIController>();
         _walker = GetComponent<Walker>();
         _walker.runSpeed = speed;
-        macri.SetActive(false);
+		wheat.SetActive(false);
         Plan();
     }
 
@@ -323,7 +323,6 @@ public class PlayerController : MonoBehaviour
                 .AddEffect(x =>
                 {
                     var wm = WorldModel.Clone(x);
-                    wm.stealCount ++;
                     return wm;
                 })
                 .AddCost(gobAgreementCost),
@@ -423,8 +422,7 @@ public class PlayerController : MonoBehaviour
         {
             yield return null;
         }
-
-        stealCount++;
+		
         if (stealCount > 1)
         {
             stealCount = 0;
@@ -547,14 +545,14 @@ public class PlayerController : MonoBehaviour
             yield return null;
         }
         yield return new WaitForSeconds(0.5f);
-        macri.SetActive(true);
+		wheat.SetActive(true);
 
         _walker.SetDestination(wheatToFlourHouse.position);
         while (!_walker.ReachDestionation)
         {
             yield return null;
         }
-        macri.SetActive(false);
+		wheat.SetActive(false);
         moneyPS.Play();
         fluorPS.Play();
         yield return new WaitForSeconds(2f);
